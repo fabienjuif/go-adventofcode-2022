@@ -7,7 +7,7 @@ func TestE2a(t *testing.T) {
 B X
 C Z`)
 
-	want := `15`
+	want := `12`
 
 	if want != got {
 		t.Errorf(`wanted: "%v"; got "%v"`, want, got)

@@ -16,7 +16,8 @@ func process(text string) string {
 
 	for _, line := range lines {
 		opponents := NewShapeFromOpponent(line[0:1])
-		ours := NewShapeFromOurself(line[2:3])
+		needTo := NewNeedTo(line[2:3])
+		ours := GetOurHand(opponents, needTo)
 
 		score := ProcessScore(opponents, ours)
 		totalScore += score
@@ -25,21 +26,57 @@ func process(text string) string {
 	return fmt.Sprintf("%d", totalScore)
 }
 
+func GetOurHand(shape Shape, needTo NeedTo) Shape {
+	switch needTo {
+	case NeedToDraw:
+		return shape
+	case NeedToLoose:
+		return shape.GetDefeated()
+	case NeedToWin:
+		return shape.GetDefeater()
+	}
+
+	panic(fmt.Sprintf("unknown needTo: %v", needTo))
+}
+
 type Shape struct {
 	slug          string
 	score         int
 	opponentValue string
-	ourValue      string
 }
 
 func (s Shape) String() string {
 	return s.slug
 }
 
+func (s Shape) GetDefeater() Shape {
+	switch s {
+	case ShapeRock:
+		return ShapePaper
+	case ShapePaper:
+		return ShapeScissors
+	case ShapeScissors:
+		return ShapeRock
+	}
+	panic(fmt.Sprintf("unknown shape: %v", s))
+}
+
+func (s Shape) GetDefeated() Shape {
+	switch s {
+	case ShapeRock:
+		return ShapeScissors
+	case ShapePaper:
+		return ShapeRock
+	case ShapeScissors:
+		return ShapePaper
+	}
+	panic(fmt.Sprintf("unknown shape: %v", s))
+}
+
 var (
-	ShapeRock     = Shape{"rock", 1, "A", "X"}
-	ShapePaper    = Shape{"paper", 2, "B", "Y"}
-	ShapeScissors = Shape{"scissors", 3, "C", "Z"}
+	ShapeRock     = Shape{"rock", 1, "A"}
+	ShapePaper    = Shape{"paper", 2, "B"}
+	ShapeScissors = Shape{"scissors", 3, "C"}
 	Shapes        = []Shape{ShapeRock, ShapePaper, ShapeScissors}
 )
 
@@ -53,15 +90,30 @@ func NewShapeFromOpponent(o string) Shape {
 	panic(fmt.Sprintf("unknown hand for opponent: %s", o))
 }
 
-func NewShapeFromOurself(o string) Shape {
-	for _, shape := range Shapes {
-		if shape.ourValue == o {
-			return shape
+type NeedTo struct {
+	slug    string
+	crypted string
+}
+
+func (n NeedTo) String() string {
+	return n.slug
+}
+
+var (
+	NeedToLoose = NeedTo{"loose", "X"}
+	NeedToDraw  = NeedTo{"draw", "Y"}
+	NeedToWin   = NeedTo{"win", "Z"}
+	NeedToS     = []NeedTo{NeedToLoose, NeedToDraw, NeedToWin}
+)
+
+func NewNeedTo(o string) NeedTo {
+	for _, needTo := range NeedToS {
+		if needTo.crypted == o {
+			return needTo
 		}
 	}
 
-	panic(fmt.Sprintf("unknown hand for ourself: %s", o))
-
+	panic(fmt.Sprintf("unknown crypted value: %s", o))
 }
 
 // Rock defeats Scissors, Scissors defeats Paper, and Paper defeats Rock.
