@@ -1,4 +1,4 @@
-package exercices
+package exercice1a
 
 import (
 	"fmt"
@@ -6,12 +6,12 @@ import (
 	"strings"
 )
 
-func RunE1a() {
+func Run() {
 	fmt.Println("exercice 1a")
-	fmt.Println(processE1a(input1a))
+	fmt.Println(process(input1a))
 }
 
-func processE1a(text string) string {
+func process(text string) string {
 	max := 0
 	cur := 0
 
@@ -39,7 +39,6 @@ func processE1a(text string) string {
 
 	return fmt.Sprintf("%d", max)
 }
-
 
 var input1a = `9686
 10178

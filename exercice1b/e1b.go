@@ -1,4 +1,4 @@
-package exercices
+package exercice1b
 
 import (
 	"fmt"
@@ -6,12 +6,12 @@ import (
 	"strings"
 )
 
-func RunE1b() {
+func Run() {
 	fmt.Println("exercice 1b")
-	fmt.Println(processE1b(input1b))
+	fmt.Println(process(input))
 }
 
-func processE1b(text string) string {
+func process(text string) string {
 	topThree := []int{0, 0, 0}
 	cur := 0
 
@@ -49,7 +49,7 @@ func processE1b(text string) string {
 	return fmt.Sprintf("%d", topThree[2]+topThree[1]+topThree[0])
 }
 
-var input1b = `9686
+var input = `9686
 10178
 3375
 9638

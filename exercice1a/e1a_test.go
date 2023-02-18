@@ -1,9 +1,9 @@
-package exercices
+package exercice1a
 
 import "testing"
 
 func TestE1a(t *testing.T) {
-	got := processE1a(`1000
+	got := process(`1000
 2000
 3000
 
