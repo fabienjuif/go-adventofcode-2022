@@ -9,8 +9,10 @@ import (
 
 func main() {
 	switch os.Args[1] {
-	case "1":
-		exercices.RunE1()
+	case "1a":
+		exercices.RunE1a()
+	case "1b":
+		exercices.RunE1b()
 	case "2":
 		exercices.RunE2()
 	default:

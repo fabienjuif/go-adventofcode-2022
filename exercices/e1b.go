@@ -6,22 +6,33 @@ import (
 	"strings"
 )
 
-func RunE1() {
-	fmt.Println("exercice 1")
-	fmt.Println(processE1(input))
+func RunE1b() {
+	fmt.Println("exercice 1b")
+	fmt.Println(processE1b(input1b))
 }
 
-func processE1(text string) string {
-	max := 0
+func processE1b(text string) string {
+	topThree := []int{0, 0, 0}
 	cur := 0
+
+	eventuallyUpdate := func() {
+		if cur > topThree[0] {
+			topThree[2] = topThree[1]
+			topThree[1] = topThree[0]
+			topThree[0] = cur
+		} else if cur > topThree[1] {
+			topThree[2] = topThree[1]
+			topThree[1] = cur
+		} else if cur > topThree[2] {
+			topThree[2] = cur
+		}
+	}
 
 	lines := strings.Split(text, "\n")
 
 	for _, line := range lines {
 		if line == "" {
-			if max < cur {
-				max = cur
-			}
+			eventuallyUpdate()
 			cur = 0
 			continue
 		}
@@ -33,15 +44,12 @@ func processE1(text string) string {
 		cur += i
 	}
 
-	if max < cur {
-		max = cur
-	}
+	eventuallyUpdate()
 
-	return fmt.Sprintf("%d", max)
+	return fmt.Sprintf("%d", topThree[2]+topThree[1]+topThree[0])
 }
 
-
-var input = `9686
+var input1b = `9686
 10178
 3375
 9638

@@ -2,8 +2,8 @@ package exercices
 
 import "testing"
 
-func TestE1(t *testing.T) {
-	got := processE1(`1000
+func TestE1a(t *testing.T) {
+	got := processE1a(`1000
 2000
 3000
 
