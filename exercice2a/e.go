@@ -61,7 +61,6 @@ func NewShapeFromOurself(o string) Shape {
 	}
 
 	panic(fmt.Sprintf("unknown hand for ourself: %s", o))
-
 }
 
 // Rock defeats Scissors, Scissors defeats Paper, and Paper defeats Rock.
