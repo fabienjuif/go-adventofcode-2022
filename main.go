@@ -10,6 +10,7 @@ import (
 	"github.com/fabienjuif/go-adventofcode-2022/exercice2b"
 	"github.com/fabienjuif/go-adventofcode-2022/exercice3a"
 	"github.com/fabienjuif/go-adventofcode-2022/exercice3b"
+	"github.com/fabienjuif/go-adventofcode-2022/exercice4a"
 )
 
 func main() {
@@ -26,6 +27,8 @@ func main() {
 		exercice3a.Run()
 	case "3b":
 		exercice3b.Run()
+	case "4a":
+		exercice4a.Run()
 	default:
 		panic(fmt.Sprintf("exercice not known: %v", os.Args[1]))
 	}
