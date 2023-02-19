@@ -220,11 +220,6 @@ type Tree struct {
 	Y          int
 	Tall       int
 	Visibility bool
-
-	// maxTallO *int
-	// maxTallE *int
-	// maxTallN *int
-	// maxTallS *int
 }
 
 func NewTree(X int, Y int, Tall int) *Tree {
